@@ -3,22 +3,22 @@ package v0
 // MfaRequestInfo struct returned for GetMfaRequest and ApproveMfaRequest
 type MfaRequestInfo struct {
 	// DateTime measured in seconds since unix epoch. A wrapper type for serialization that encodes a `SystemTime` as a `u64` representing the number of seconds since `SystemTime::UNIX_EPOCH`.
-	ExpiresAt int64 `json:"timestamp"`
+	ExpiresAt *int64 `json:"timestamp,omitempty"`
 	// Approval request ID.
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// Receipt that an MFA request was approved.
 	Receipt *MfaReceipt `json:"receipt,omitempty"`
 	// Request
-	Request MfaHttpRequest `json:"request"`
+	Request *MfaHttpRequest `json:"request,omitempty"`
 	// Status
-	Status MfaStatus `json:"status"`
+	Status *MfaStatus `json:"status,omitempty"`
 }
 
 // NewMfaRequestInfo instantiates a new MfaRequestInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMfaRequestInfo(id string, receipt *MfaReceipt, request MfaHttpRequest, status MfaStatus) *MfaRequestInfo {
+func NewMfaRequestInfo(id *string, receipt *MfaReceipt, request *MfaHttpRequest, status *MfaStatus) *MfaRequestInfo {
 	this := MfaRequestInfo{}
 	this.Id = id
 	this.Receipt = receipt
@@ -36,9 +36,9 @@ func NewMfaRequestInfoWithDefaults() *MfaRequestInfo {
 }
 
 // GetExpiresAt returns the ExpiresAt field value
-func (o *MfaRequestInfo) GetExpiresAt() int64 {
+func (o *MfaRequestInfo) GetExpiresAt() *int64 {
 	if o == nil {
-		var ret int64
+		var ret *int64
 		return ret
 	}
 
@@ -51,18 +51,18 @@ func (o *MfaRequestInfo) GetExpiresAtOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ExpiresAt, true
+	return o.ExpiresAt, true
 }
 
 // SetExpiresAt sets the ExpiresAt field value
-func (o *MfaRequestInfo) SetExpiresAt(v int64) {
+func (o *MfaRequestInfo) SetExpiresAt(v *int64) {
 	o.ExpiresAt = v
 }
 
 // GetId returns the Id field value
-func (o *MfaRequestInfo) GetId() string {
+func (o *MfaRequestInfo) GetId() *string {
 	if o == nil {
-		var ret string
+		var ret *string
 		return ret
 	}
 
@@ -75,11 +75,11 @@ func (o *MfaRequestInfo) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
 // SetId sets the Id field value
-func (o *MfaRequestInfo) SetId(v string) {
+func (o *MfaRequestInfo) SetId(v *string) {
 	o.Id = v
 }
 
@@ -106,9 +106,9 @@ func (o *MfaRequestInfo) SetReceipt(v *MfaReceipt) {
 }
 
 // GetRequest returns the Request field value
-func (o *MfaRequestInfo) GetRequest() MfaHttpRequest {
+func (o *MfaRequestInfo) GetRequest() *MfaHttpRequest {
 	if o == nil {
-		var ret MfaHttpRequest
+		var ret *MfaHttpRequest
 		return ret
 	}
 
@@ -121,18 +121,18 @@ func (o *MfaRequestInfo) GetRequestOk() (*MfaHttpRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Request, true
+	return o.Request, true
 }
 
 // SetRequest sets the Request field value
-func (o *MfaRequestInfo) SetRequest(v MfaHttpRequest) {
+func (o *MfaRequestInfo) SetRequest(v *MfaHttpRequest) {
 	o.Request = v
 }
 
 // GetStatus returns the Status field value
-func (o *MfaRequestInfo) GetStatus() MfaStatus {
+func (o *MfaRequestInfo) GetStatus() *MfaStatus {
 	if o == nil {
-		var ret MfaStatus
+		var ret *MfaStatus
 		return ret
 	}
 
@@ -145,10 +145,10 @@ func (o *MfaRequestInfo) GetStatusOk() (*MfaStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Status, true
 }
 
 // SetStatus sets the Status field value
-func (o *MfaRequestInfo) SetStatus(v MfaStatus) {
+func (o *MfaRequestInfo) SetStatus(v *MfaStatus) {
 	o.Status = v
 }

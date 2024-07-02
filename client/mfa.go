@@ -43,14 +43,21 @@ func (cli *Client) GetMfaRequest(mfaId string) (*v0.MfaRequestInfo, error) {
 // can be used to resume the original HTTP request.
 // If rejecting, immediately deletes the pending MFA request.
 func (cli *Client) ApproveOrRejectMfaRequest(mfaId string, mfaVote v0.MfaVote) (*v0.MfaRequestInfo, error) {
-	if !mfaVote.IsValid() {
+	var voteQuery string
+	switch mfaVote {
+	case v0.Approve:
+		voteQuery = "approve"
+	case v0.Reject:
+		voteQuery = "reject"
+	default:
 		return nil, errors.New("invalid MfaVote value")
 	}
 
-	response, _, err := cli.patch(fmt.Sprintf("/v0/org/:org_id/mfa/%s?mfa_vote=%s", url.PathEscape(mfaId), mfaVote), nil, nil, nil)
+	response, _, err := cli.patch(fmt.Sprintf("/v0/org/:org_id/mfa/%s?mfa_vote=%s", url.PathEscape(mfaId), voteQuery), nil, nil, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "request ApproveOrRejectMfaRequest")
 	}
+
 	decoded, err := decodeJSONResponse[v0.MfaRequestInfo](response)
 	if err != nil {
 		return nil, errors.Wrap(err, "decode")
